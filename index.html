@@ -18,6 +18,8 @@
   <h2 id="cardName"></h2>
   
   <p id="cardMeaning"></p>
+
+  <p id="cardAdvice"></p>
   
   <script>
     // 當按下「占卜！」按鈕時觸發的函式
@@ -37,6 +39,7 @@
           // 更新網頁上的牌名和牌義
           document.getElementById("cardName").textContent = selectedCard[0];
           document.getElementById("cardMeaning").textContent = selectedCard[1];
+          document.getElementById("cardAdvice").textContent = selectedCard[2];
         })
         .catch(error => {
           console.error('無法讀取塔羅牌資料檔案：', error);
