@@ -20,22 +20,23 @@
   <p id="cardMeaning"></p>
   
   <script>
-    // 定義塔羅牌的資料檔案位置
-    var tarotDataFile = 'https://raw.githubusercontent.com/Alessiacyt/tarot_data/main/tarot_data.json';
-    
     // 當按下「占卜！」按鈕時觸發的函式
     function randomCard() {
-      // 讀取塔羅牌的資料檔案
-      fetch(tarotDataFile)
-        .then(response => response.json())
+      // 讀取CSV檔案
+      fetch('tarot_data.csv')
+        .then(response => response.text())
         .then(data => {
+          // 將CSV資料轉換成陣列
+          const lines = data.split('\n');
+          // 移除表頭行
+          lines.shift();
           // 隨機選擇一張牌
-          var randomIndex = Math.floor(Math.random() * data.length);
-          var selectedCard = data[randomIndex];
+          const randomIndex = Math.floor(Math.random() * lines.length);
+          const selectedCard = lines[randomIndex].split(',');
           
           // 更新網頁上的牌名和牌義
-          document.getElementById("cardName").textContent = selectedCard.name;
-          document.getElementById("cardMeaning").textContent = selectedCard.meaning;
+          document.getElementById("cardName").textContent = selectedCard[0];
+          document.getElementById("cardMeaning").textContent = selectedCard[1];
         })
         .catch(error => {
           console.error('無法讀取塔羅牌資料檔案：', error);
